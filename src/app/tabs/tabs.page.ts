@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Platform} from '@ionic/angular';
 
 @Component({
   selector: 'app-tabs',
@@ -6,7 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['tabs.page.scss']
 })
 export class TabsPage {
+  isPlatformMobile: boolean;
 
-  constructor() {}
+  constructor(public platform: Platform) {
+    this.isPlatformMobile = platform.is('mobile');
+  }
 
 }
