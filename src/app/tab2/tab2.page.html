@@ -9,21 +9,58 @@
 </ion-header>
 
 <ion-content>
-  <div id="componentList">
-  <ion-menu side="start" menuId="first">
-    <ion-header>
-      <ion-toolbar color="primary">
-        <ion-title>Start Menu</ion-title>
-      </ion-toolbar>
-    </ion-header>
-      <ion-list>
-        <ion-item>Menu Item</ion-item>
-        <ion-item>Menu Item</ion-item>
-        <ion-item>Menu Item</ion-item>
-        <ion-item>Menu Item</ion-item>
-        <ion-item>Menu Item</ion-item>
-      </ion-list>
-  </ion-menu>
-
+<div id="view">
+  <div id="componentList" >
+  <ion-list>
+    <ion-list-header>
+      Liste des composant disponible
+    </ion-list-header>
+    <ion-item>
+      <ion-label >Input</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Toggle</ion-label>
+      <ion-toggle slot="end"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label>Radio</ion-label>
+      <ion-radio slot="end"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>Checkbox</ion-label>
+      <ion-checkbox slot="start"></ion-checkbox>
+    </ion-item>
+  </ion-list>
   </div>
-</ion-content>
+
+  <div id="canvas"></div>
+  <div  id="diceRollList" >
+    <ion-icon name="arrow-back" class="showingArrow" (click)="showOrHideRollList()"></ion-icon>
+    <ion-list *ngIf="rollListShown">
+      <ion-list-header>
+        Liste lancer de dés disponible
+      </ion-list-header>
+      <ion-item>
+        <ion-label >Input</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Toggle</ion-label>
+        <ion-toggle slot="end"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Radio</ion-label>
+        <ion-radio slot="end"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Checkbox</ion-label>
+        <ion-checkbox slot="start"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+  </div>
+</div>
+
+
+  </ion-content>
+
