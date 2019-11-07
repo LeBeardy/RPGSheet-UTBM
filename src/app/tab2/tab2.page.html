@@ -1,9 +1,29 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Tab Two
+      <ion-button color="primary">Charger model</ion-button>
+
+      <ion-button id="newModel"><ion-icon name="add-circle-outline"></ion-icon> </ion-button>
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+  <div id="componentList">
+  <ion-menu side="start" menuId="first">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>Start Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+      <ion-list>
+        <ion-item>Menu Item</ion-item>
+        <ion-item>Menu Item</ion-item>
+        <ion-item>Menu Item</ion-item>
+        <ion-item>Menu Item</ion-item>
+        <ion-item>Menu Item</ion-item>
+      </ion-list>
+  </ion-menu>
+
+  </div>
+</ion-content>
