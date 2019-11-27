@@ -6,4 +6,33 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+  <div id="contenerRollList">
+    <ion-button color="light" id="hideButton" (click)="toggleTooltip()"><ion-icon name="arrow-back" class="showingArrow" ></ion-icon></ion-button>
+    <app-expandable expandWidth="150px" [expanded]="tooltipExpand" id="diceRollList" >
+      <ion-list  id="list">
+        <ion-list-header>
+          Liste lancer de dés disponible
+        </ion-list-header>
+        <ion-item>
+          <ion-label >Input</ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Toggle</ion-label>
+          <ion-toggle slot="end"></ion-toggle>
+        </ion-item>
+        <ion-item>
+          <ion-label>Radio</ion-label>
+          <ion-radio slot="end"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Checkbox</ion-label>
+          <ion-checkbox slot="start"></ion-checkbox>
+        </ion-item>
+      </ion-list>
+    </app-expandable>
+  </div>
+
+
+</ion-content>

@@ -2,30 +2,34 @@
   height: 100%;
   border-right: grey 1px solid;
   display: block;
+  //resize: horizontal;
+  //overflow: auto;
 }
 
 #canvas{
   height: 100%;
   display: block;
-
 }
 
 #view{
-
   display: grid;
-  grid-template-columns: 15% 75% 10%;
-
+  grid-template-columns: 15% 70% 15%;
   height: 100%;
 }
 #diceRollList{
   height: 100%;
-  border-left: grey 1px solid;
-  display: block;
+  width:100%;
+  //border-left: grey 1px solid;
 }
 
+//#hideButton{
+//  height:100%;
+//}
+
+.float{
+  float: left  ;
+}
 .showingArrow{
+  width: 20%;
+}
 
-}
-.hidden-div{
-  width: 0%!important;
-}
