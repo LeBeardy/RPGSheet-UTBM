@@ -22,7 +22,7 @@ export class Tab2Page {
 
   createSelect() {
     const t = new SelectComponent();
-    t.id = 0;
+    t.id = this.canvas.length() + 1;
     t.x = 1;
     t.y = 2;
     t.width = 150;
@@ -31,21 +31,23 @@ export class Tab2Page {
     t.addOption('test1');
     t.addOption('test2');
     t.addOption('test3');
-
-    const r = new Rule();
-    r.result = true;
-    r.roll = 10;
-    r.condition = '>';
-    t.addRule(r);
-
     this.canvas.addElement(t);
-    // alert(JSON.stringify(Serialize(t)));
 
   }
 
     ExportJSONCanvas() {
 
-      alert(JSON.stringify(Serialize(this.canvas)));
+      // @ts-ignore
+      const FileSaver = require('file-saver');
+
+      const json = [JSON.stringify( Serialize( this.canvas ) )];
+
+      alert(json);
+
+      const file = new File( json, 'hello world.json', {type: 'text/JSON;charset=utf-8'});
+      FileSaver.saveAs(file);
+
+      // alert(JSON.stringify(Serialize(this.canvas)));
     }
 
     ExportPDFCanvas() {
