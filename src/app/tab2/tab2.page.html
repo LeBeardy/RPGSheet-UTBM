@@ -4,6 +4,9 @@
       <ion-button color="primary">Charger model</ion-button>
 
       <ion-button id="newModel"><ion-icon name="add-circle-outline"></ion-icon> </ion-button>
+      <ion-button (click)="ExportJSONCanvas()"><ion-icon name="download"></ion-icon></ion-button>
+      <ion-button (click)="ExportPDFCanvas()">pdf</ion-button>
+
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -39,7 +42,7 @@
   </div>
 
   <div id="canvas">
-    <ion-card *ngFor="let elem of canvas" style="height:{{elem.height}}px; width:{{elem.width}}px">
+    <ion-card *ngFor="let elem of canvas.canvas" style="height:{{elem.height}}px; width:{{elem.width}}px">
       <ion-header>{{elem.label}}</ion-header>
       <ion-item>
       <select>

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {SelectComponent} from '../models/selectComponent';
 import {Rule} from '../models/rule';
 import {Serialize, serialize} from 'cerialize';
+import {Canvas} from '../models/canvas';
 
 @Component({
   selector: 'app-tab2',
@@ -10,11 +11,11 @@ import {Serialize, serialize} from 'cerialize';
 })
 export class Tab2Page {
   tooltipExpand: boolean;
-  canvas: any[] = [];
+  canvas: Canvas ;
 
   constructor() {
     this.tooltipExpand = true;
-
+    this.canvas = new Canvas();
   }
 
   createSelect() {
@@ -35,11 +36,19 @@ export class Tab2Page {
     r.condition = '>';
     t.addRule(r);
 
-    this.canvas.push(t);
-    alert(JSON.stringify(Serialize(t)));
+    this.canvas.addElement(t);
+    // alert(JSON.stringify(Serialize(t)));
 
   }
 
+    ExportJSONCanvas() {
+
+      alert(JSON.stringify(Serialize(this.canvas)));
+    }
+
+    ExportPDFCanvas(){
+      alert('pdf');
+    }
   toggleTooltip(): void {
     this.tooltipExpand = !this.tooltipExpand;
   }
