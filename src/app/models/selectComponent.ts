@@ -7,14 +7,15 @@ export class SelectComponent {
     @serialize y: number;
     @serializeAs('options') options: string[] = [];
     @serialize label: string;
-    @serializeAs('rules') rules: Rule[] = [];
+    // @serializeAs('rules') rules: Rule[] = [];
     @serialize width: number;
     @serialize height: number;
+    @serialize type = 'select';
 
     addOption(option: string) {
         this.options.push(option);
     }
-    addRule(rule: Rule) {
-        this.rules.push(rule);
-    }
+    // addRule(rule: Rule) {
+    //     this.rules.push(rule);
+    // }
 }
