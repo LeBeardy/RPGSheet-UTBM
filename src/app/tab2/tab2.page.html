@@ -13,7 +13,7 @@
 
 <ion-content>
 <div id="view">
-  <div id="componentList" resizable r-direction="right">
+  <div id="componentList" mwlResizable [enableGhostResize]="true" [resizeEdges]="{ right: true }"  (resizeEnd)="onResizeEnd($event,'componentList')">
   <ion-list>
     <ion-list-header>
       Liste des composant disponible
@@ -52,7 +52,7 @@
     </ion-card>
 
   </div>
-  <div id="contenerRollList"  mwlResizable [enableGhostResize]="true" [resizeEdges]="{ bottom: false, right: false, top: false, left: true }">
+  <div id="contenerRollList" mwlResizable [enableGhostResize]="true" [resizeEdges]="{ left: true }" *ngIf="tooltipExpand"  (resizeEnd)="onResizeEnd($event,'contenerRollList')">
     <div id="diceRollList" class="" >
 <!--      <app-expandable expandWidth="90%" [expanded]="tooltipExpand" id="" class="">-->
         <ion-list >

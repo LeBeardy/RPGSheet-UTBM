@@ -3,6 +3,7 @@ import {SelectComponent} from '../models/selectComponent';
 import {Rule} from '../models/rule';
 import {Serialize, serialize} from 'cerialize';
 import {Canvas} from '../models/canvas';
+import {ResizeEvent} from 'angular-resizable-element';
 
 @Component({
   selector: 'app-tab2',
@@ -53,6 +54,12 @@ export class Tab2Page {
     }
   toggleTooltip(): void {
     this.tooltipExpand = !this.tooltipExpand;
+  }
+
+  onResizeEnd(event: ResizeEvent, id): void {
+    document.getElementById(id).style.position = 'fixed';
+    document.getElementById(id).style.left = `${event.rectangle.left}px`;
+    document.getElementById(id).style.width = `${event.rectangle.width}px`;
   }
 
 }
