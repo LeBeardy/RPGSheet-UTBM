@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { Tab2Page } from './tab2.page';
 import {ComponentsModule} from '../components/components.module';
 import {ResizableModule} from 'angular-resizable-element';
+import {DndModule} from 'ngx-drag-drop';
 
 @NgModule({
     imports: [
@@ -14,7 +15,8 @@ import {ResizableModule} from 'angular-resizable-element';
         FormsModule,
         RouterModule.forChild([{path: '', component: Tab2Page}]),
         ComponentsModule,
-        ResizableModule
+        ResizableModule,
+        DndModule
     ],
   declarations: [Tab2Page]
 })

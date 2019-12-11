@@ -4,8 +4,9 @@ import {Rule} from '../models/rule';
 import {Serialize, serialize} from 'cerialize';
 import {Canvas} from '../models/canvas';
 import {ResizeEvent} from 'angular-resizable-element';
-import * as jspdf from 'jspdf';
+import jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
+import {DndDropEvent} from 'ngx-drag-drop';
 
 @Component({
   selector: 'app-tab2',
@@ -15,6 +16,7 @@ import html2canvas from 'html2canvas';
 export class Tab2Page {
   tooltipExpand: boolean;
   canvas: Canvas ;
+    private currentDragEffectMsg: string;
 
   constructor() {
     this.tooltipExpand = true;
@@ -47,31 +49,37 @@ export class Tab2Page {
 
       const file = new File( json, 'hello world.json', {type: 'text/JSON;charset=utf-8'});
       FileSaver.saveAs(file);
+   }
 
-      // alert(JSON.stringify(Serialize(this.canvas)));
-    }
-
-    ExportPDFCanvas() {
+  ExportPDFCanvas() {
       const data = document.getElementById('canvas');
       html2canvas(data).then(canvas => {
-        const imgWidth = 208;
-        const pageHeight = 295;
-        const imgHeight = canvas.height * imgWidth / canvas.width;
-        const heightLeft = imgHeight;
-
-        const contentDataURL = canvas.toDataURL('image/png')
-        const pdf = new jspdf('p', 'mm', 'a4');
-        const position = 0;
-        pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)
-        pdf.save('MYPdf.pdf');
-
-      });
+          const imgWidth = 208;
+          const pageHeight = 295;
+          const imgHeight = canvas.height * imgWidth / canvas.width;
+          const heightLeft = imgHeight;
+          const contentDataURL = canvas.toDataURL('image/png');
+          const pdf = new jspdf('p', 'mm', 'a4');
+          const position = 0;
+          pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+          pdf.save('MYPdf.pdf');
+        });
       }
 
     toggleTooltip(): void {
      this.tooltipExpand = !this.tooltipExpand;
   }
 
+  onDrop(event: DndDropEvent ) {
+      alert(JSON.stringify(event));
+  }
+    onDragged( $event: DragEvent, effect:string ) {
+
+        this.currentDragEffectMsg = `Drag ended with effect "${effect}"!`;
+    }
+  // drawComponents(component: any){
+  //
+  // }
   onResizeEnd(event: ResizeEvent, id): void {
     document.getElementById(id).style.position = 'fixed';
     document.getElementById(id).style.left = `${event.rectangle.left}px`;
