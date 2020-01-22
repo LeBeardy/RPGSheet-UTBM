@@ -1,38 +1,39 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Tab Three
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<!--a draggable element-->
+<div [dndDraggable]="draggable.data"
+     [dndEffectAllowed]="draggable.effectAllowed"
+     [dndDisableIf]="draggable.disable"
+     (dndStart)="onDragStart($event)"
+     (dndCopied)="onDraggableCopied($event)"
+     (dndLinked)="onDraggableLinked($event)"
+     (dndMoved)="onDraggableMoved($event)"
+     (dndCanceled)="onDragCanceled($event)"
+     (dndEnd)="onDragEnd($event)">
 
-<ion-content>
-  <div id="contenerRollList">
-    <ion-button color="light" id="hideButton" (click)="toggleTooltip()"><ion-icon name="arrow-back" class="showingArrow" ></ion-icon></ion-button>
-    <app-expandable expandWidth="150px" [expanded]="tooltipExpand" id="diceRollList" >
-      <ion-list  id="list">
-        <ion-list-header>
-          Liste lancer de dés disponible
-        </ion-list-header>
-        <ion-item>
-          <ion-label >Input</ion-label>
-          <ion-input></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Toggle</ion-label>
-          <ion-toggle slot="end"></ion-toggle>
-        </ion-item>
-        <ion-item>
-          <ion-label>Radio</ion-label>
-          <ion-radio slot="end"></ion-radio>
-        </ion-item>
-        <ion-item>
-          <ion-label>Checkbox</ion-label>
-          <ion-checkbox slot="start"></ion-checkbox>
-        </ion-item>
-      </ion-list>
-    </app-expandable>
+  <!--if [dndHandle] is used inside dndDraggable drag can only start from the handle-->
+  <div *ngIf="draggable.handle"
+       dndHandle>HANDLE
   </div>
 
+  draggable ({{draggable.effectAllowed}}) <span [hidden]="!draggable.disable">DISABLED</span>
 
-</ion-content>
+  <!--optionally select a child element as drag image-->
+  <div dndDragImageRef>DRAG_IMAGE</div>
+
+</div>
+
+<!--a dropzone-->
+<!--to allow dropping content that is not [dndDraggable] set dndAllowExternal to true-->
+<section dndDropzone
+         (dndDragover)="onDragover($event)"
+         (dndDrop)="onDrop($event)">
+
+  dropzone
+
+  <!--optional placeholder element for dropzone-->
+  <!--will be removed from DOM on init-->
+  <div style="border: 1px orangered solid; border-radius: 5px; padding: 15px;"
+       dndPlaceholderRef>
+    placeholder
+  </div>
+
+</section>

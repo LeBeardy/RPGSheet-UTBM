@@ -15,12 +15,23 @@ import {DndDropEvent} from 'ngx-drag-drop';
 })
 export class Tab2Page {
   tooltipExpand: boolean;
-  canvas: Canvas ;
+  canvas: Canvas;
+  canvas2: Canvas ;
     private currentDragEffectMsg: string;
+
+    draggable = {
+        // note that data is handled with JSON.stringify/JSON.parse
+        // only set simple data or POJO's as methods will be lost
+        data: "myDragData",
+        effectAllowed: "all",
+        disable: false,
+        handle: false
+    };
 
   constructor() {
     this.tooltipExpand = true;
     this.canvas = new Canvas();
+    this.canvas2 = new Canvas();
   }
 
   createSelect() {

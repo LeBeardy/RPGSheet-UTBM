@@ -50,14 +50,14 @@
        dndDragoverClass="custom-drag-over"
        (dndDrop)="onDrop($event)"
   >
-<!--    <ion-card *ngFor="let elem of canvas.canvas" >-->
-<!--      <ion-header>{{elem.label}}</ion-header>-->
-<!--      <ion-item>-->
-<!--      <select>-->
-<!--        <option *ngFor="let opt of elem.options" value="{{opt}}">{{opt}}</option>-->
-<!--      </select>-->
-<!--      </ion-item>-->
-<!--    </ion-card>-->
+    <ion-card *ngFor="let elem of canvas2.canvas " >
+      <ion-header>{{elem.label}}</ion-header>
+      <ion-item>
+      <select>
+        <option *ngFor="let opt of elem.options" value="{{opt}}">{{opt}}</option>
+      </select>
+      </ion-item>
+    </ion-card>
 
   </div>
   <div id="contenerRollList" mwlResizable [enableGhostResize]="true" [resizeEdges]="{ left: true }" *ngIf="tooltipExpand"  (resizeEnd)="onResizeEnd($event,'contenerRollList')">
@@ -85,7 +85,11 @@
             <ion-checkbox slot="start"></ion-checkbox>
           </ion-item>
 
-          <ion-card *ngFor="let elem of canvas.canvas" (dndCopied)="onDragged($event, 'copy')" >
+          <ion-card *ngFor="let elem of canvas.canvas"
+                    [dndDraggable]="draggable.data"
+                    [dndEffectAllowed]="draggable.effectAllowed"
+                    [dndDisableIf]="draggable.disable"
+                    (dndCopied)="onDragged($event, 'copy')" >
             <ion-header>{{elem.label}}</ion-header>
             <ion-item>
               <select>
