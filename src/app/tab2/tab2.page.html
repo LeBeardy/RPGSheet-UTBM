@@ -18,47 +18,41 @@
     <ion-list-header>
       Liste des composant disponible
     </ion-list-header>
-    <ion-item>
-      <ion-label> Select</ion-label>
-      <ion-button (click)="createSelect()" >create</ion-button>
-    </ion-item>
-    <ion-item>
-      <ion-label >Input</ion-label>
-      <ion-input></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Toggle</ion-label>
-      <ion-toggle slot="end"></ion-toggle>
-    </ion-item>
-    <ion-item>
-      <ion-label>Radio</ion-label>
-      <ion-radio slot="end"></ion-radio>
-    </ion-item>
-    <ion-item>
-      <ion-label>Checkbox</ion-label>
-      <ion-checkbox slot="start"></ion-checkbox>
+    <ion-item *ngFor="let draggable of draggables"
+              [dndDraggable]="draggable.content"
+              [dndEffectAllowed]="draggable.effectAllowed"
+              [dndDisableIf]="draggable.disable">
+
+      <ion-icon  *ngIf="draggable.handle" name="code"  dndHandle>drag_handle></ion-icon>
+
+      draggable ({{draggable.effectAllowed}})
+      <span [hidden]="!draggable.handle"> only with handle</span>
+      <span [hidden]="!draggable.disable"> DISABLED</span>
+
     </ion-item>
   </ion-list>
   </div>
 
-  <div id="canvas"
-       fxFlex
-       fxLayout="column"
-       fxLayoutAlign="center center"
-       class="my-dropzone scrollable"
-       dndDropzone
-       dndDragoverClass="custom-drag-over"
+  <div
+       dndDropzone id="canvas"
        (dndDrop)="onDrop($event)"
   >
-    <ion-card *ngFor="let elem of canvas2.canvas " >
+
+    <!--optional placeholder element for dropzone-->
+    <!--will be removed from DOM on init-->
+    <div style="border: 1px orangered solid; border-radius: 5px; padding: 15px;"
+         dndPlaceholderRef>
+      placeholder
+    </div>
+
+    <ion-card *ngFor="let elem of canvas.canvas " >
       <ion-header>{{elem.label}}</ion-header>
       <ion-item>
-      <select>
-        <option *ngFor="let opt of elem.options" value="{{opt}}">{{opt}}</option>
-      </select>
+        <select>
+          <option *ngFor="let opt of elem.options" value="{{opt}}">{{opt}}</option>
+        </select>
       </ion-item>
     </ion-card>
-
   </div>
   <div id="contenerRollList" mwlResizable [enableGhostResize]="true" [resizeEdges]="{ left: true }" *ngIf="tooltipExpand"  (resizeEnd)="onResizeEnd($event,'contenerRollList')">
     <div id="diceRollList" class="" >
@@ -84,19 +78,6 @@
             <ion-label>Checkbox</ion-label>
             <ion-checkbox slot="start"></ion-checkbox>
           </ion-item>
-
-          <ion-card *ngFor="let elem of canvas.canvas"
-                    [dndDraggable]="draggable.data"
-                    [dndEffectAllowed]="draggable.effectAllowed"
-                    [dndDisableIf]="draggable.disable"
-                    (dndCopied)="onDragged($event, 'copy')" >
-            <ion-header>{{elem.label}}</ion-header>
-            <ion-item>
-              <select>
-                <option *ngFor="let opt of elem.options" value="{{opt}}">{{opt}}</option>
-              </select>
-            </ion-item>
-          </ion-card>
         </ion-list>
 <!--      </app-expandable>-->
     </div>

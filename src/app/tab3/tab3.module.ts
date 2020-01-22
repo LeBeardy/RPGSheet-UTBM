@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Tab3Page } from './tab3.page';
 import {ComponentsModule} from '../components/components.module';
-import {DndModule} from 'ngx-drag-drop';
+import {DndDragImageOffsetFunction, DndDropEvent, DndModule} from 'ngx-drag-drop';
 
 @NgModule({
     imports: [
@@ -18,4 +18,7 @@ import {DndModule} from 'ngx-drag-drop';
     ],
   declarations: [Tab3Page]
 })
-export class Tab3PageModule {}
+export class Tab3PageModule {
+
+
+}

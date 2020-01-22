@@ -6,7 +6,7 @@ import {Canvas} from '../models/canvas';
 import {ResizeEvent} from 'angular-resizable-element';
 import jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
-import {DndDropEvent} from 'ngx-drag-drop';
+import { DndDropEvent } from 'ngx-drag-drop';
 
 @Component({
   selector: 'app-tab2',
@@ -19,19 +19,30 @@ export class Tab2Page {
   canvas2: Canvas ;
     private currentDragEffectMsg: string;
 
-    draggable = {
-        // note that data is handled with JSON.stringify/JSON.parse
-        // only set simple data or POJO's as methods will be lost
-        data: "myDragData",
-        effectAllowed: "all",
-        disable: false,
-        handle: false
-    };
+    public draggables = [
+        {
+            content: 'select',
+            effectAllowed: 'copy',
+            disable: false,
+            handle: false,
+        },
+        {
+            content: 'champ',
+            effectAllowed: 'copy',
+            disable: false,
+            handle: false,
+        },
+        {
+            content: 'checkbox',
+            effectAllowed: 'copy',
+            disable: false,
+            handle: false
+        }
+    ];
 
   constructor() {
     this.tooltipExpand = true;
     this.canvas = new Canvas();
-    this.canvas2 = new Canvas();
   }
 
   createSelect() {
@@ -55,46 +66,38 @@ export class Tab2Page {
       const FileSaver = require('file-saver');
 
       const json = [JSON.stringify( Serialize( this.canvas ) )];
-
-      alert(json);
-
       const file = new File( json, 'hello world.json', {type: 'text/JSON;charset=utf-8'});
       FileSaver.saveAs(file);
    }
 
-  ExportPDFCanvas() {
-      const data = document.getElementById('canvas');
-      html2canvas(data).then(canvas => {
-          const imgWidth = 208;
-          const pageHeight = 295;
-          const imgHeight = canvas.height * imgWidth / canvas.width;
-          const heightLeft = imgHeight;
-          const contentDataURL = canvas.toDataURL('image/png');
-          const pdf = new jspdf('p', 'mm', 'a4');
-          const position = 0;
-          pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
-          pdf.save('MYPdf.pdf');
+    ExportPDFCanvas() {
+        const data = document.getElementById('canvas');
+        html2canvas(data).then(canvas => {
+            const imgWidth = 208;
+            const pageHeight = 295;
+            const imgHeight = canvas.height * imgWidth / canvas.width;
+            const heightLeft = imgHeight;
+            const contentDataURL = canvas.toDataURL('image/png');
+            const pdf = new jspdf('p', 'mm', 'a4');
+            const position = 0;
+            pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+            pdf.save('MYPdf.pdf');
         });
-      }
+    }
 
     toggleTooltip(): void {
      this.tooltipExpand = !this.tooltipExpand;
   }
 
-  onDrop(event: DndDropEvent ) {
-      alert(JSON.stringify(event));
-  }
-    onDragged( $event: DragEvent, effect:string ) {
-
-        this.currentDragEffectMsg = `Drag ended with effect "${effect}"!`;
-    }
-  // drawComponents(component: any){
-  //
-  // }
   onResizeEnd(event: ResizeEvent, id): void {
     document.getElementById(id).style.position = 'fixed';
     document.getElementById(id).style.left = `${event.rectangle.left}px`;
     document.getElementById(id).style.width = `${event.rectangle.width}px`;
   }
+
+    onDrop(event: DndDropEvent) {
+        console.log("dropped", JSON.stringify(event, null, 2));
+        this.createSelect();
+    }
 
 }

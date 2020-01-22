@@ -1,39 +1,47 @@
-<!--a draggable element-->
-<div [dndDraggable]="draggable.data"
-     [dndEffectAllowed]="draggable.effectAllowed"
-     [dndDisableIf]="draggable.disable"
-     (dndStart)="onDragStart($event)"
-     (dndCopied)="onDraggableCopied($event)"
-     (dndLinked)="onDraggableLinked($event)"
-     (dndMoved)="onDraggableMoved($event)"
-     (dndCanceled)="onDragCanceled($event)"
-     (dndEnd)="onDragEnd($event)">
+<div fxFlex
+     fxLayout="row">
 
-  <!--if [dndHandle] is used inside dndDraggable drag can only start from the handle-->
-  <div *ngIf="draggable.handle"
-       dndHandle>HANDLE
-  </div>
+  <section fxFlex
+           fxLayout="column"
+           class="scrollable"
+           style="padding: 8px; margin-right: 8px;">
 
-  draggable ({{draggable.effectAllowed}}) <span [hidden]="!draggable.disable">DISABLED</span>
+    <ion-card *ngFor="let draggable of draggables"
+              [dndDraggable]="draggable.content"
+              [dndEffectAllowed]="draggable.effectAllowed"
+              [dndDisableIf]="draggable.disable"
+              (dndStart)="onDragStart($event)"
+              (dndCopied)="onDragged($event, 'copy')"
+              (dndLinked)="onDragged($event, 'link')"
+              (dndMoved)="onDragged($event, 'move')"
+              (dndCanceled)="onDragged($event, 'none')"
+              (dndEnd)="onDragEnd($event)">
 
-  <!--optionally select a child element as drag image-->
-  <div dndDragImageRef>DRAG_IMAGE</div>
+      <ion-icon  *ngIf="draggable.handle" name="code"  dndHandle>drag_handle></ion-icon>
+
+      draggable ({{draggable.effectAllowed}})
+      <span [hidden]="!draggable.handle"> only with handle</span>
+      <span [hidden]="!draggable.disable"> DISABLED</span>
+
+    </ion-card>
+
+
+
+  </section>
+
+  <section dndDropzone id="dropzone"
+           (dndDragover)="onDragover($event)"
+           (dndDrop)="onDrop($event)">
+
+    dropzone
+
+    <!--optional placeholder element for dropzone-->
+    <!--will be removed from DOM on init-->
+    <div style="border: 1px orangered solid; border-radius: 5px; padding: 15px;"
+         dndPlaceholderRef>
+      placeholder
+    </div>
+
+  </section>
 
 </div>
-
-<!--a dropzone-->
-<!--to allow dropping content that is not [dndDraggable] set dndAllowExternal to true-->
-<section dndDropzone
-         (dndDragover)="onDragover($event)"
-         (dndDrop)="onDrop($event)">
-
-  dropzone
-
-  <!--optional placeholder element for dropzone-->
-  <!--will be removed from DOM on init-->
-  <div style="border: 1px orangered solid; border-radius: 5px; padding: 15px;"
-       dndPlaceholderRef>
-    placeholder
-  </div>
-
-</section>

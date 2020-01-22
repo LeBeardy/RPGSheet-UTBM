@@ -1,41 +1,6 @@
-#componentList{
-  height: 100%;
-  border-right: grey 1px solid;
-  display: block;
+#dropzone{
+  border: solid 1px black;
+
+  width: 100px;
+  height: 100px;
 }
-
-#canvas{
-  height: 100%;
-  display: block;
-
-}
-
-#view{
-
-  display: grid;
-  grid-template-columns: 15% 75% 10%;
-
-  height: 100%;
-}
-#diceRollList{
-  height: 100%;
-  border: black 1px solid;
-  display: block;
-  width: 150px;
-
-}
-#contenerRollList{
-  display: grid;
-  grid-template-columns: 1% 99%;
-  height: 100%;
-}
-
-#hideButton{
-  height:100%;
-  //widht:100%;
-}
-
-#list{
-  height: 100%;
-}
-
