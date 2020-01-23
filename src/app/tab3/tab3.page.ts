@@ -1,5 +1,12 @@
 import { Component } from '@angular/core';
+import {SelectComponent} from '../models/selectComponent';
+import {DeserializeInto, Serialize} from 'cerialize';
+import {Canvas} from '../models/canvas';
+import {ResizeEvent} from 'angular-resizable-element';
+import jspdf from 'jspdf';
+import html2canvas from 'html2canvas';
 import { DndDropEvent } from 'ngx-drag-drop';
+import {InputComponent} from '../models/inputComponent';
 
 @Component({
   selector: 'app-tab3',
@@ -7,68 +14,85 @@ import { DndDropEvent } from 'ngx-drag-drop';
   styleUrls: ['tab3.page.scss'],
 })
 export class Tab3Page {
-  public draggables = [
-    {
-      content: 'testdata',
-      effectAllowed: 'copy',
-      disable: false,
-      handle: false,
-    },
-    {
-      content: 'testdata2',
-      effectAllowed: 'move',
-      disable: false,
-      handle: false,
-    },
-    {
-      content: 'testdata3',
-      effectAllowed: 'link',
-      disable: false,
-      handle: false
-    },
-    {
-      content: 'testdata4',
-      effectAllowed: 'copy',
-      disable: true,
-      handle: false,
-    },
-    {
-      content: 'testdata5',
-      effectAllowed: 'copy',
-      disable: false,
-      handle: true,
-    }
-  ];
+  tooltipExpand: boolean;
+  canvas: Canvas;
 
-  public dropzoneEnabled = true;
-  public lastDropEvent: DndDropEvent | null = null;
+  public defaultModel =
+      {
+        title: 'untitledModel',
+        canvas: [
+          {
+            id: 1, x: 1, y: 2, options: ['test1', 'test2', 'test3'],
+            label: 'test',
+            width: 150,
+            height: 100,
+            type: 'select'
+          },
+          {
+            id: 2,
+            x: 1,
+            y: 2,
+            label: 'test',
+            width: 150,
+            height: 100,
+            type: 'input'
+          },
+          {
+            id: 1, x: 1, y: 2, options: ['test1', 'test2', 'test3'],
+            label: 'test',
+            width: 150,
+            height: 100,
+            type: 'select'
+          },
+          {
+            id: 2,
+            x: 1,
+            y: 2,
+            label: 'test',
+            width: 150,
+            height: 100,
+            type: 'input'
+          }
+        ]
+      };
 
-  constructor( ) {
+
+  constructor() {
+    this.tooltipExpand = true;
+    this.canvas = new Canvas();
   }
 
-  onDragStart(event:DragEvent) {
-
-    console.log("drag started", JSON.stringify(event, null, 2));
+  updateTitle(event) {
+    this.canvas.title = event.target.value;
   }
 
-  onDragEnd(event:DragEvent) {
+  ExportJSONCanvas() {
 
-    console.log("drag ended", JSON.stringify(event, null, 2));
+    // @ts-ignore
+    const FileSaver = require('file-saver');
+
+    const json = [JSON.stringify( Serialize( this.canvas ) )];
+    const file = new File( json, this.canvas.title + '.json', {type: 'text/JSON;charset=utf-8'});
+    FileSaver.saveAs(file);
   }
 
-  onDragged($event:DragEvent, effect:string ) {
-
-    console.log('dragged ' + effect, JSON.stringify(event, null, 2));
+  ExportPDFCanvas() {
+    const data = document.getElementById('canvas');
+    html2canvas(data).then(canvas => {
+      const imgWidth = 208;
+      const pageHeight = 295;
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      const heightLeft = imgHeight;
+      const contentDataURL = canvas.toDataURL('image/png');
+      const pdf = new jspdf('p', 'mm', 'a4');
+      const position = 0;
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+      pdf.save('MYPdf.pdf');
+    });
   }
 
-  onDrop(event:DndDropEvent) {
-
-    console.log("dropped", JSON.stringify(event, null, 2));
+  chargeDefaultModel() {
+    DeserializeInto(this.defaultModel, Canvas, this.canvas);
   }
-  onDragover(event:DragEvent) {
-
-    console.log("dragover", JSON.stringify(event, null, 2));
-  }
-
 
 }

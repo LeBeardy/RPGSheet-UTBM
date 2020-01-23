@@ -1,47 +1,29 @@
-<div fxFlex
-     fxLayout="row">
+<ion-header>
+  <ion-toolbar>
+    <ion-item id="title">
+      <ion-input value="{{canvas.title}}" (change)="updateTitle($event)"></ion-input>
+    </ion-item>
+    <ion-button color="primary" (click)="chargeDefaultModel()">Charger model</ion-button>
 
-  <section fxFlex
-           fxLayout="column"
-           class="scrollable"
-           style="padding: 8px; margin-right: 8px;">
+    <ion-button (click)="ExportJSONCanvas()"><ion-icon name="download"></ion-icon></ion-button>
+    <ion-button (click)="ExportPDFCanvas()">pdf</ion-button>
 
-    <ion-card *ngFor="let draggable of draggables"
-              [dndDraggable]="draggable.content"
-              [dndEffectAllowed]="draggable.effectAllowed"
-              [dndDisableIf]="draggable.disable"
-              (dndStart)="onDragStart($event)"
-              (dndCopied)="onDragged($event, 'copy')"
-              (dndLinked)="onDragged($event, 'link')"
-              (dndMoved)="onDragged($event, 'move')"
-              (dndCanceled)="onDragged($event, 'none')"
-              (dndEnd)="onDragEnd($event)">
+  </ion-toolbar>
+</ion-header>
 
-      <ion-icon  *ngIf="draggable.handle" name="code"  dndHandle>drag_handle></ion-icon>
-
-      draggable ({{draggable.effectAllowed}})
-      <span [hidden]="!draggable.handle"> only with handle</span>
-      <span [hidden]="!draggable.disable"> DISABLED</span>
-
-    </ion-card>
-
-
-
-  </section>
-
-  <section dndDropzone id="dropzone"
-           (dndDragover)="onDragover($event)"
-           (dndDrop)="onDrop($event)">
-
-    dropzone
-
-    <!--optional placeholder element for dropzone-->
-    <!--will be removed from DOM on init-->
-    <div style="border: 1px orangered solid; border-radius: 5px; padding: 15px;"
-         dndPlaceholderRef>
-      placeholder
+<ion-content>
+  <div id="view">
+      <div *ngFor="let elem of canvas.canvas " >
+        <select *ngIf="elem.type == 'select'" class="defaultSelect">
+          <option *ngFor="let opt of elem.options" value="{{opt}}">{{opt}}</option>
+        </select>
+        <div  *ngIf="elem.type == 'input'" class="defaultInput" id="{{elem.id}}">
+          <ion-input></ion-input>
+        </div>
+      </div>
     </div>
 
-  </section>
 
-</div>
+
+</ion-content>
+
