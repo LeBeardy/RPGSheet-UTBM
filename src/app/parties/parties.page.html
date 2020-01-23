@@ -3,6 +3,9 @@
     <ion-title>
       <ion-button color="primary" (click)="showPopUpCreate()" >Créer Partie</ion-button>
       <ion-button color="primary" (click)="showPopUpJoin()" >Rejoindre Partie</ion-button>
+      <ion-item id="title">
+        <ion-input value="{{this.nomPartie}}" (change)="updateTitle($event)"></ion-input>
+      </ion-item>
     </ion-title>
   </ion-toolbar>
 </ion-header>

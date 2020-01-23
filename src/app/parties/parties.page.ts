@@ -10,6 +10,9 @@ export class PartiesPage implements OnInit {
   constructor(public PopUpCreate: AlertController) { }
   ngOnInit() {
   }
+  inputName:string = "";
+  idPartie:number;
+  nomPartie:string = "";
 
   async showPopUpCreate() {
     // @ts-ignore
@@ -17,7 +20,7 @@ export class PartiesPage implements OnInit {
       header: 'Créer une partie',
       inputs: [
         {
-          name: 'Nom de Partie',
+          name: 'nomPartie',
           placeholder: 'Entrer un nom de partie'
         },
       ],
@@ -31,9 +34,11 @@ export class PartiesPage implements OnInit {
         },
         {
           text: 'Valider',
-          role: 'cancel',
+          role: 'validate',
           handler: data => {
-            console.log('Validé');
+            this.inputName=data.nomPartie + "#";
+            this.idPartie = Math.floor(Math.random()*9999+1);
+            this.nomPartie = this.inputName + this.idPartie;
           }
         }
       ]
@@ -71,7 +76,7 @@ export class PartiesPage implements OnInit {
       ]
     }).then(alert=> alert.present());
   }
-  updateTitle() {
+  updateTitle(NomPartie) {
 
   }
 }
