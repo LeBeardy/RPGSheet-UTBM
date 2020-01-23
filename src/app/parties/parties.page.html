@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <ion-button color="primary" (click)="showPopUpCreate()" >Créer Partie</ion-button>
+      <ion-button color="primary" (click)="showPopUpJoin()" >Rejoindre Partie</ion-button>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="view">
+    <div id="playerList" mwlResizable [enableGhostResize]="true" [resizeEdges]="{ right: true }">
+      <ion-list>
+        <ion-list-header>
+          Liste des joueurs
+        </ion-list-header>
+      </ion-list>
+    </div>
+  </div>
+</ion-content>
