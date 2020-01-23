@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import {SelectComponent} from '../models/selectComponent';
-import {Rule} from '../models/rule';
-import {Serialize, serialize} from 'cerialize';
+import {Serialize} from 'cerialize';
 import {Canvas} from '../models/canvas';
 import {ResizeEvent} from 'angular-resizable-element';
 import jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
 import { DndDropEvent } from 'ngx-drag-drop';
+import {InputComponent} from '../models/inputComponent';
 
 @Component({
   selector: 'app-tab2',
@@ -16,9 +16,6 @@ import { DndDropEvent } from 'ngx-drag-drop';
 export class Tab2Page {
   tooltipExpand: boolean;
   canvas: Canvas;
-  canvas2: Canvas ;
-    private currentDragEffectMsg: string;
-
     public draggables = [
         {
             content: 'select',
@@ -31,42 +28,62 @@ export class Tab2Page {
             effectAllowed: 'copy',
             disable: false,
             handle: false,
-        },
-        {
-            content: 'checkbox',
-            effectAllowed: 'copy',
-            disable: false,
-            handle: false
         }
     ];
+
+
+    public defaultInput =
+        {
+            content: 'input',
+            effectAllowed: 'select',
+            disable: false,
+            handle: false,
+        };
 
   constructor() {
     this.tooltipExpand = true;
     this.canvas = new Canvas();
   }
 
-  createSelect() {
-    const t = new SelectComponent();
-    t.id = this.canvas.length() + 1;
-    t.x = 1;
-    t.y = 2;
-    t.width = 150;
-    t.height = 100;
-    t.label = 'test';
-    t.addOption('test1');
-    t.addOption('test2');
-    t.addOption('test3');
-    this.canvas.addElement(t);
-
+  updateTitle(event) {
+      this.canvas.title = event.target.value;
+  }
+  getElementId() {
+      return this.canvas.length() + 1;
   }
 
+  createSelect() {
+        const t = new SelectComponent();
+        t.id = this.getElementId();
+        t.x = 1;
+        t.y = 2;
+        t.width = 150;
+        t.height = 100;
+        t.label = 'test';
+        t.addOption('test1');
+        t.addOption('test2');
+        t.addOption('test3');
+        this.canvas.addElement(t);
+
+    }
+    createInput() {
+        const t = new InputComponent();
+        t.id = this.getElementId();
+        t.x = 1;
+        t.y = 2;
+        t.width = 150;
+        t.height = 100;
+        t.label = 'test';
+        this.canvas.addElement(t);
+
+    }
     ExportJSONCanvas() {
 
       // @ts-ignore
       const FileSaver = require('file-saver');
 
       const json = [JSON.stringify( Serialize( this.canvas ) )];
-      const file = new File( json, 'hello world.json', {type: 'text/JSON;charset=utf-8'});
+      const file = new File( json, this.canvas.title + '.json', {type: 'text/JSON;charset=utf-8'});
       FileSaver.saveAs(file);
    }
 
@@ -96,8 +113,13 @@ export class Tab2Page {
   }
 
     onDrop(event: DndDropEvent) {
-        console.log("dropped", JSON.stringify(event, null, 2));
-        this.createSelect();
+        console.log('dropped', JSON.stringify(event, null, 2));
+
+        if ( event.data === 'select') {
+            this.createSelect();
+        } else if (event.data === 'champ') {
+            this.createInput();
+        }
     }
 
 }

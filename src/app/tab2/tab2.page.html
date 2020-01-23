@@ -1,13 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
+      <ion-item id="title">
+        <ion-input value="{{canvas.title}}" (change)="updateTitle($event)"></ion-input>
+      </ion-item>
       <ion-button color="primary">Charger model</ion-button>
 
-      <ion-button id="newModel"><ion-icon name="add-circle-outline"></ion-icon> </ion-button>
       <ion-button (click)="ExportJSONCanvas()"><ion-icon name="download"></ion-icon></ion-button>
       <ion-button (click)="ExportPDFCanvas()">pdf</ion-button>
 
-    </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -25,10 +25,9 @@
 
       <ion-icon  *ngIf="draggable.handle" name="code"  dndHandle>drag_handle></ion-icon>
 
-      draggable ({{draggable.effectAllowed}})
+      {{draggable.content}}
       <span [hidden]="!draggable.handle"> only with handle</span>
       <span [hidden]="!draggable.disable"> DISABLED</span>
-
     </ion-item>
   </ion-list>
   </div>
@@ -45,14 +44,17 @@
       placeholder
     </div>
 
-    <ion-card *ngFor="let elem of canvas.canvas " >
-      <ion-header>{{elem.label}}</ion-header>
-      <ion-item>
-        <select>
-          <option *ngFor="let opt of elem.options" value="{{opt}}">{{opt}}</option>
-        </select>
-      </ion-item>
-    </ion-card>
+    <div *ngFor="let elem of canvas.canvas " >
+      <select *ngIf="elem.type == 'select'" class="defaultSelect">
+        <option *ngFor="let opt of elem.options" value="{{opt}}">{{opt}}</option>
+      </select>
+      <div *ngIf="elem.type == 'input'" class="defaultInput"
+           [dndDraggable]="defaultInput.content"
+           [dndEffectAllowed]="defaultInput.effectAllowed"
+           [dndDisableIf]="defaultInput.disable">
+        <ion-input></ion-input>
+      </div>
+    </div>
   </div>
   <div id="contenerRollList" mwlResizable [enableGhostResize]="true" [resizeEdges]="{ left: true }" *ngIf="tooltipExpand"  (resizeEnd)="onResizeEnd($event,'contenerRollList')">
     <div id="diceRollList" class="" >
@@ -62,22 +64,6 @@
             <ion-icon name="arrow-back" class="" (click)="toggleTooltip()" ></ion-icon>
               Liste lancer de dés disponible
           </ion-list-header>
-          <ion-item>
-            <ion-label >Input</ion-label>
-            <ion-input></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label>Toggle</ion-label>
-            <ion-toggle slot="end"></ion-toggle>
-          </ion-item>
-          <ion-item>
-            <ion-label>Radio</ion-label>
-            <ion-radio slot="end"></ion-radio>
-          </ion-item>
-          <ion-item>
-            <ion-label>Checkbox</ion-label>
-            <ion-checkbox slot="start"></ion-checkbox>
-          </ion-item>
         </ion-list>
 <!--      </app-expandable>-->
     </div>
