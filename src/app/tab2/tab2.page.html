@@ -48,10 +48,17 @@
       <select *ngIf="elem.type == 'select'" class="defaultSelect">
         <option *ngFor="let opt of elem.options" value="{{opt}}">{{opt}}</option>
       </select>
-      <div *ngIf="elem.type == 'input'" class="defaultInput"
-           [dndDraggable]="defaultInput.content"
-           [dndEffectAllowed]="defaultInput.effectAllowed"
-           [dndDisableIf]="defaultInput.disable">
+      <div  *ngIf="elem.type == 'input'" class="defaultInput" id="{{elem.id}}"
+
+            [dndDraggable]="defaultInput.content"
+            [dndEffectAllowed]="defaultInput.effectAllowed"
+            [dndDisableIf]="defaultInput.disable"
+            mwlResizable
+            [enableGhostResize]="true"
+            [resizeEdges]="{ left: true, right:true, top: true, bottom: true }"
+
+            (resizeEnd)="onResizeEnd($event, elem.id )"
+      >
         <ion-input></ion-input>
       </div>
     </div>

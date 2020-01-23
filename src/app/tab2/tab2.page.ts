@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {SelectComponent} from '../models/selectComponent';
-import {deserialize, DeserializeInto, Serialize} from 'cerialize';
+import {DeserializeInto, Serialize} from 'cerialize';
 import {Canvas} from '../models/canvas';
 import {ResizeEvent} from 'angular-resizable-element';
 import jspdf from 'jspdf';
@@ -149,11 +149,13 @@ export class Tab2Page {
     document.getElementById(id).style.position = 'fixed';
     document.getElementById(id).style.left = `${event.rectangle.left}px`;
     document.getElementById(id).style.width = `${event.rectangle.width}px`;
+    document.getElementById(id).style.top = `${event.rectangle.top}px`;
+    document.getElementById(id).style.height = `${event.rectangle.height}px`;
+    document.getElementById(id).style.right = `${event.rectangle.right}px`;
+    document.getElementById(id).style.bottom = `${event.rectangle.bottom}px`;
   }
 
     onDrop(event: DndDropEvent) {
-        console.log('dropped', JSON.stringify(event, null, 2));
-
         if ( event.data === 'select') {
             this.createSelect();
         } else if (event.data === 'champ') {
