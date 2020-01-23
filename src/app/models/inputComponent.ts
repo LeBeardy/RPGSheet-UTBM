@@ -1,13 +1,13 @@
-import {serialize} from 'cerialize';
+import {autoserialize, serialize} from 'cerialize';
 
 export class InputComponent {
-    @serialize value: any;
-    @serialize id: number;
-    @serialize x: number;
-    @serialize y: number;
-    @serialize label: string;
-    @serialize width: number;
-    @serialize height: number;
-    @serialize type = 'input';
+    @autoserialize  value: any;
+    @autoserialize  id: number;
+    @autoserialize  x: number;
+    @autoserialize  y: number;
+    @autoserialize  label: string;
+    @autoserialize  width: number;
+    @autoserialize  height: number;
+    @autoserialize  type = 'input';
 
 }

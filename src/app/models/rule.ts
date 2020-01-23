@@ -1,7 +1,7 @@
-import { serialize } from 'cerialize';
+import {autoserialize, serialize} from 'cerialize';
 
 export class Rule {
-    @serialize condition: string;
-    @serialize roll: number;
-    @serialize result: any;
+    @autoserialize  condition: string;
+    @autoserialize  roll: number;
+    @autoserialize  result: any;
 }

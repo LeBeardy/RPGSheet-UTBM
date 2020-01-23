@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {SelectComponent} from '../models/selectComponent';
-import {Serialize} from 'cerialize';
+import {deserialize, DeserializeInto, Serialize} from 'cerialize';
 import {Canvas} from '../models/canvas';
 import {ResizeEvent} from 'angular-resizable-element';
 import jspdf from 'jspdf';
@@ -30,6 +30,45 @@ export class Tab2Page {
             handle: false,
         }
     ];
+
+    public defaultModel =
+        {
+            title: 'untitledModel',
+            canvas: [
+                {
+                    id: 1, x: 1, y: 2, options: ['test1', 'test2', 'test3'],
+                    label: 'test',
+                    width: 150,
+                    height: 100,
+                    type: 'select'
+                },
+                {
+                    id: 2,
+                    x: 1,
+                    y: 2,
+                    label: 'test',
+                    width: 150,
+                    height: 100,
+                    type: 'input'
+                },
+                {
+                    id: 1, x: 1, y: 2, options: ['test1', 'test2', 'test3'],
+                    label: 'test',
+                    width: 150,
+                    height: 100,
+                    type: 'select'
+                },
+                {
+                    id: 2,
+                    x: 1,
+                    y: 2,
+                    label: 'test',
+                    width: 150,
+                    height: 100,
+                    type: 'input'
+                }
+            ]
+        };
 
 
     public defaultInput =
@@ -120,6 +159,10 @@ export class Tab2Page {
         } else if (event.data === 'champ') {
             this.createInput();
         }
+    }
+
+    chargeDefaultModel() {
+        DeserializeInto(this.defaultModel, Canvas, this.canvas);
     }
 
 }

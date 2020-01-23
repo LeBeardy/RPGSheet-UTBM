@@ -1,16 +1,16 @@
 import {Rule} from './rule';
-import {serialize, serializeAs} from 'cerialize';
+import {autoserialize, serialize, serializeAs} from 'cerialize';
 
 export class Title {
-    @serialize value: string;
-    @serialize id: number;
-    @serialize x: number;
-    @serialize y: number;
-    @serialize label: string;
+    @autoserialize  value: string;
+    @autoserialize  id: number;
+    @autoserialize  x: number;
+    @autoserialize  y: number;
+    @autoserialize  label: string;
     // @serializeAs('rules') rules: Rule[] = [];
-    @serialize width: number;
-    @serialize height: number;
-    @serialize type = 'title';
+    @autoserialize  width: number;
+    @autoserialize  height: number;
+    @autoserialize  type = 'title';
 
     // addRule(rule: Rule) {
     //     this.rules.push(rule);

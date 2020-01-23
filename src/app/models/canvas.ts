@@ -1,8 +1,8 @@
-import {serialize} from 'cerialize';
+import {autoserialize} from 'cerialize';
 
 export class Canvas {
-    @serialize title = 'untitledModel';
-    @serialize canvas: any[] = [];
+    @autoserialize  title = 'untitledModel';
+    @autoserialize  canvas: any[] = [];
 
     addElement(compo: any) {
         this.canvas.push(compo);

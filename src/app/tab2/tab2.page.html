@@ -3,7 +3,7 @@
       <ion-item id="title">
         <ion-input value="{{canvas.title}}" (change)="updateTitle($event)"></ion-input>
       </ion-item>
-      <ion-button color="primary">Charger model</ion-button>
+      <ion-button color="primary" (click)="chargeDefaultModel()">Charger model</ion-button>
 
       <ion-button (click)="ExportJSONCanvas()"><ion-icon name="download"></ion-icon></ion-button>
       <ion-button (click)="ExportPDFCanvas()">pdf</ion-button>

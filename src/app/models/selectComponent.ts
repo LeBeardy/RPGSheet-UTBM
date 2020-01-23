@@ -1,17 +1,17 @@
 import {Rule} from './rule';
-import {serialize, serializeAs} from 'cerialize';
+import {autoserialize, autoserializeAs, serialize, serializeAs} from 'cerialize';
 
 export class SelectComponent {
-    @serialize value: string;
-    @serialize id: number;
-    @serialize x: number;
-    @serialize y: number;
-    @serializeAs('options') options: string[] = [];
-    @serialize label: string;
+    @autoserialize  value: string;
+    @autoserialize  id: number;
+    @autoserialize  x: number;
+    @autoserialize  y: number;
+    @autoserializeAs ('options') options: string[] = [];
+    @autoserialize  label: string;
     // @serializeAs('rules') rules: Rule[] = [];
-    @serialize width: number;
-    @serialize height: number;
-    @serialize type = 'select';
+    @autoserialize  width: number;
+    @autoserialize  height: number;
+    @autoserialize  type = 'select';
 
     addOption(option: string) {
         this.options.push(option);
